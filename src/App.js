@@ -1,5 +1,6 @@
 import './App.css';
 import PasswordInput from './components/PasswordInput/PasswordInput.js';
+import Slider from './components/Slider/Slider.js';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         <PasswordInput></PasswordInput>
       </div>
       <div className='password-controls'>
-        controls go here
+        <Slider></Slider>
       </div>
     </div>
   );
