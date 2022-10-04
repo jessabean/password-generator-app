@@ -27,7 +27,7 @@ function PasswordInput({initialValue = ''}) {
 
 
   return (
-    <div className='password-input-wrap'>
+    <div className='password-input-wrapper'>
       <input 
         readOnly
         className='password-input'
