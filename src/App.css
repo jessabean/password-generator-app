@@ -9,7 +9,16 @@
   --color-yellow: #F8CD65; 
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: var(--color-black);
-  color: var(--color-gray-light)
+  color: var(--color-gray-light);
+}
+
+.wrap {
+  max-width: 33.75rem;
+  margin: 0 auto;
 }

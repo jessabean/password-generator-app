@@ -1,22 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import './components/PasswordInput.js'
+import PasswordInput from './components/PasswordInput.js';
 
 function App() {
   return (
-    <div className="App">
+    <div className="wrap">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Password Generator</h1>
       </header>
+      <PasswordInput></PasswordInput>
     </div>
   );
 }
