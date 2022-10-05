@@ -1,13 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import './PasswordInput.css';
+import randomize from 'randomatic';
 
-function PasswordInput({initialValue = ''}) {
+function PasswordInput({initialValue = '', passwordLength}) {
   const buttonEl = useRef(null);
   const [inputValue, setInputValue] = useState(initialValue);
   const [buttonText, setButtonText] = useState('');
 
-  function handleChange(event) {
-    setInputValue(event.target.value);
+  function generatePassword(passwordLength) {
+    const pw = randomize('A', passwordLength);
+    setInputValue(pw);
   }
 
   function handleClick(event) {
@@ -22,8 +24,8 @@ function PasswordInput({initialValue = ''}) {
   }
 
   useEffect(() => {
-    setInputValue(inputValue);
-  }, [inputValue])
+    generatePassword(passwordLength);
+  }, [passwordLength])
 
 
   return (
@@ -32,7 +34,6 @@ function PasswordInput({initialValue = ''}) {
         readOnly
         className='password-input'
         value={inputValue}
-        onChange={handleChange}
         placeholder='P4$5W0rD!' />
       <button className='password-copy' onClick={handleClick} ref={buttonEl} onAnimationEnd={animationEnd}>
         <span className='password-copy-text'>{buttonText}</span>

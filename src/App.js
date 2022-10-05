@@ -8,7 +8,7 @@ function App() {
   const [passwordLength, setPasswordLength] = useState(DEFAULT_LENGTH);
 
   const handleUpdate = num => {
-    setPasswordLength(num);
+    setPasswordLength(parseInt(num));
   };
 
   return (
@@ -17,7 +17,7 @@ function App() {
         <h1 className='app-title'>Password Generator</h1>
       </header>
       <div className='password-box'>
-        <PasswordInput></PasswordInput>
+        <PasswordInput passwordLength={passwordLength}></PasswordInput>
       </div>
       <div className='password-controls'>
         <Slider handleUpdate={handleUpdate} defaultValue={DEFAULT_LENGTH}></Slider>
