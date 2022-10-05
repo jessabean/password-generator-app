@@ -10,6 +10,7 @@
 }
 
 .slider-input {
+  grid-column: span 2;
   background: var(--color-black);
   height: 0.5rem;
   appearance: none;
