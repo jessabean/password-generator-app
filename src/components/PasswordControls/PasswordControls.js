@@ -1,52 +1,66 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import './PasswordControls.css';
+import { controls } from './passwordoptions.js';
 
-function PasswordControls({handleUpdate, defaultValue}) {
+function PasswordControls({handleOptions}) {
+  const defaultChecked = controls.filter((control) => control.checked === true);
+  const initialOptions = defaultChecked.flatMap((item) => [item.pattern]);
+  const initialChecks = controls.flatMap((item) => [item.checked]);
+
+  const [checkedControls, setCheckedControls] = useState(initialChecks);
+  const [passwordOptions, setPasswordOptions] = useState(initialOptions);
+
+  function handleCheck(event, position) {
+    const {value, checked} = event.target; 
+    const updatedCheckedState = checkedControls.map((item, index) =>
+      index === position ? !item : item
+    );
+
+    setCheckedControls(updatedCheckedState);
+    
+    if(checked) {
+      setPasswordOptions([...passwordOptions, value]);
+      handleOptions(passwordOptions);
+    } else {
+      setPasswordOptions(passwordOptions.filter((e) => e !== value));
+      handleOptions(passwordOptions);
+    }
+  }
+
+  useEffect(() => {
+    setPasswordOptions(passwordOptions);
+    handleOptions(passwordOptions);
+  },[passwordOptions]);
+
   return(
     <>
-      <svg className='checkbox-icon'>
-        <symbol id='check' viewBox='0 0 15 13'>
-          <path d='M2 6.60659L5.39341 10L13.3934 2' stroke='#18171F' strokeWidth='3'/>
+      <svg className="checkbox-icon">
+        <symbol id="check" viewBox="0 0 15 13">
+          <path d="M2 6.60659L5.39341 10L13.3934 2" stroke="#18171F" strokeWidth="3"/>
         </symbol>
       </svg>
       
-      <ul className='password-options'>
-        <li className='option'>
-          <label className='option-label'>
-            <div className='checkbox-container'>
-              <input type='checkbox' className='option-checkbox' />
-              <svg><use href="#check"></use></svg>
-            </div>
-            <span className='option-text'>Include Uppercase Letters</span>
-          </label>
-        </li>
-        <li className='option'>
-          <label className='option-label'>
-            <div className='checkbox-container'>
-              <input type='checkbox' className='option-checkbox' />
-              <svg><use href="#check"></use></svg>
-            </div>
-            <span className='option-text'>Include Lowercase Letters</span>
-          </label>
-        </li>
-        <li className='option'>
-          <label className='option-label'>
-            <div className='checkbox-container'>
-              <input type='checkbox' className='option-checkbox' />
-              <svg><use href="#check"></use></svg>
-            </div>
-            <span className='option-text'>Include Numbers</span>
-          </label>
-        </li>
-        <li className='option'>
-          <label className='option-label'>
-            <div className='checkbox-container'>
-              <input type='checkbox' className='option-checkbox' />
-              <svg><use href="#check"></use></svg>
-            </div>
-            <span className='option-text'>Include Symbols</span>
-          </label>
-        </li>
+      <ul className="password-options">
+        {controls.map(
+          ({ name, label, pattern, checked }, index) => {
+            return (
+              <li key={index} className="option">
+                <label className="option-label">
+                  <div className="checkbox-container">
+                    <input onChange={(e) => handleCheck(e, index)}
+                      id={`checkbox-${name}`} 
+                      type="checkbox" 
+                      className="option-checkbox"
+                      value={pattern}
+                      checked={checkedControls[index]} />
+                    <svg><use href="#check"></use></svg>
+                  </div>
+                  <span className="option-text">{label}</span>
+                </label>
+              </li>
+            )
+          }
+        )}
       </ul>
     </>
   )

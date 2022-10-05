@@ -2,13 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 import './PasswordInput.css';
 import randomize from 'randomatic';
 
-function PasswordInput({initialValue = '', passwordLength}) {
+function PasswordInput({initialValue = '', passwordLength, passwordPattern}) {
   const buttonEl = useRef(null);
   const [inputValue, setInputValue] = useState(initialValue);
   const [buttonText, setButtonText] = useState('');
 
-  function generatePassword(passwordLength) {
-    const pw = randomize('A', passwordLength);
+  function generatePassword(passwordLength, passwordPattern) {
+    const pw = randomize(passwordPattern, passwordLength);
     setInputValue(pw);
   }
 
@@ -24,8 +24,8 @@ function PasswordInput({initialValue = '', passwordLength}) {
   }
 
   useEffect(() => {
-    generatePassword(passwordLength);
-  }, [passwordLength])
+    generatePassword(passwordLength, passwordPattern);
+  }, [passwordLength, passwordPattern])
 
 
   return (
