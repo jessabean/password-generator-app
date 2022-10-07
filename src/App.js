@@ -3,6 +3,7 @@ import './App.css';
 import PasswordInput from './components/PasswordInput/PasswordInput.js';
 import Slider from './components/Slider/Slider.js';
 import PasswordControls from './components/PasswordControls/PasswordControls.js';
+import StrengthIndicator from './components/StrengthIndicator/StrengthIndicator';
 
 function App() {
   const DEFAULT_LENGTH = 10;
@@ -29,6 +30,7 @@ function App() {
       <div className='password-controls'>
         <Slider handleUpdate={handleUpdate} defaultValue={DEFAULT_LENGTH}></Slider>
         <PasswordControls handleOptions={handleOptions}></PasswordControls>
+        <StrengthIndicator options={passwordPattern.length}></StrengthIndicator>
       </div>
     </div>
   );

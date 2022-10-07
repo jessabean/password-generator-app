@@ -1,0 +1,58 @@
+.strength {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-black);
+  padding: var(--space-md);
+}
+
+.strength-title {
+  margin: 0;
+  color: var(--color-gray);
+  text-transform: uppercase;
+}
+
+.strength-meter {
+  display: flex;
+  align-items: center;
+}
+
+.strength-label {
+  margin: 0 1rem 0 0;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: var(--font-size-h2);
+  color: var(--color-gray-light);
+}
+
+.strength-meter-increment {
+  width: 11px;
+  height: 28px;
+  stroke: var(--color-gray-light);
+  stroke-width: 2;
+}
+
+.strength-meter-increment:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.strength-meter--0 .strength-meter-increment:first-child,
+.strength-meter--1 .strength-meter-increment:first-child {
+  fill: var(--color-red);
+  stroke: var(--color-red);
+}
+
+.strength-meter--2 .strength-meter-increment:nth-child(-n+2) {
+  fill: var(--color-orange);
+  stroke: var(--color-orange);
+}
+
+.strength-meter--3 .strength-meter-increment:nth-child(-n+3) {
+  fill: var(--color-yellow);
+  stroke: var(--color-yellow);
+}
+
+.strength-meter--4 .strength-meter-increment:nth-child(-n+4) {
+  fill: var(--color-green);
+  stroke: var(--color-green);
+}
