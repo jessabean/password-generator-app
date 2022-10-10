@@ -4,6 +4,7 @@
   align-items: center;
   background-color: var(--color-black);
   padding: var(--space-md);
+  margin-bottom: var(--space-md);
 }
 
 .strength-title {

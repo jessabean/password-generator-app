@@ -4,6 +4,7 @@ import PasswordInput from './components/PasswordInput/PasswordInput.js';
 import Slider from './components/Slider/Slider.js';
 import PasswordControls from './components/PasswordControls/PasswordControls.js';
 import StrengthIndicator from './components/StrengthIndicator/StrengthIndicator';
+import Button from './components/Button/Button';
 
 function App() {
   const DEFAULT_LENGTH = 10;
@@ -31,6 +32,7 @@ function App() {
         <Slider handleUpdate={handleUpdate} defaultValue={DEFAULT_LENGTH}></Slider>
         <PasswordControls handleOptions={handleOptions}></PasswordControls>
         <StrengthIndicator options={passwordPattern.length}></StrengthIndicator>
+        <Button text='Generate' icon='true'></Button>
       </div>
     </div>
   );
