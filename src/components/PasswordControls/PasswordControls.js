@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import PasswordContext from '../../contexts/Password/PasswordContext';
 import './PasswordControls.css';
-import { controls } from './passwordoptions.js';
+import { controls } from './passwordoptions';
 
-function PasswordControls({handleOptions}) {
+function PasswordControls() {
+  const context = useContext(PasswordContext);
   const defaultChecked = controls.filter((control) => control.checked === true);
   const initialOptions = defaultChecked.flatMap((item) => [item.pattern]);
   const initialChecks = controls.flatMap((item) => [item.checked]);
@@ -20,17 +22,17 @@ function PasswordControls({handleOptions}) {
     
     if(checked) {
       setPasswordOptions([...passwordOptions, value]);
-      handleOptions(passwordOptions);
+      context.updatePattern(passwordOptions);
     } else {
       setPasswordOptions(passwordOptions.filter((e) => e !== value));
-      handleOptions(passwordOptions);
+      context.updatePattern(passwordOptions);
     }
   }
 
   useEffect(() => {
     setPasswordOptions(passwordOptions);
-    handleOptions(passwordOptions);
-  },[passwordOptions]);
+    context.updatePattern(passwordOptions);
+  },[passwordOptions, context]);
 
   return(
     <>

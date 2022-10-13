@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css';
 import PasswordInput from './components/PasswordInput/PasswordInput.js';
 import Slider from './components/Slider/Slider.js';
@@ -12,11 +12,6 @@ function App() {
   const DEFAULT_PATTERN = 'a';
   const [passwordLength, setPasswordLength] = useState(DEFAULT_LENGTH);
   const [passwordPattern, setPasswordPattern] = useState(DEFAULT_PATTERN);
-
-  function handleOptions(options) {
-    const pattern = options.join('');
-    setPasswordPattern(pattern);
-  }
 
   const updateLength = event => {
     const num = event.target.value;
@@ -35,9 +30,6 @@ function App() {
     updatePattern,
   };
 
-
-
-
   return (
     <PasswordContext.Provider value={passwordSettings}>
       <div className='wrap'>
@@ -49,7 +41,7 @@ function App() {
         </div>
         <div className='password-controls'>
           <Slider></Slider>
-          <PasswordControls handleOptions={handleOptions}></PasswordControls>
+          <PasswordControls></PasswordControls>
           <StrengthIndicator options={passwordPattern.length}></StrengthIndicator>
           <Button text='Generate' icon='true'></Button>
         </div>
