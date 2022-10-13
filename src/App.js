@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import randomize from 'randomatic';
 import './App.css';
 import PasswordInput from './components/PasswordInput/PasswordInput.js';
 import Slider from './components/Slider/Slider.js';
@@ -12,6 +13,7 @@ function App() {
   const DEFAULT_PATTERN = 'a';
   const [passwordLength, setPasswordLength] = useState(DEFAULT_LENGTH);
   const [passwordPattern, setPasswordPattern] = useState(DEFAULT_PATTERN);
+  const [passwordValue, setPasswordValue] = useState('');
 
   const updateLength = event => {
     const num = event.target.value;
@@ -23,11 +25,22 @@ function App() {
     setPasswordPattern(pattern);
   }
 
+  const handleButtonClick = () => {
+    generatePassword(passwordLength, passwordPattern)
+  }
+
+  const generatePassword = (passwordLength, passwordPattern) => {
+    const pw = randomize(passwordPattern, passwordLength);
+    setPasswordValue(pw);
+  }
+
   const passwordSettings = {
     length: passwordLength,
     pattern: passwordPattern,
+    passwordValue: passwordValue,
     updateLength,
     updatePattern,
+    generatePassword,
   };
 
   return (
@@ -43,7 +56,7 @@ function App() {
           <Slider></Slider>
           <PasswordControls></PasswordControls>
           <StrengthIndicator options={passwordPattern.length}></StrengthIndicator>
-          <Button text='Generate' icon='true'></Button>
+          <Button text='Generate' icon='true' onClick={handleButtonClick}></Button>
         </div>
       </div>
     </PasswordContext.Provider>

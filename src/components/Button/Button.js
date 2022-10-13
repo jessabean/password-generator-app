@@ -1,8 +1,8 @@
 import './Button.css';
 
-function Button({text = '', icon}) {
+function Button({text = '', icon, onClick}) {
   return(
-    <button className="button">
+    <button className="button" onClick={onClick}>
       {text}
       {!!icon &&
         <span className="button-icon">
