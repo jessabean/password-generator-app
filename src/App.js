@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import randomize from 'randomatic';
 import './App.css';
 import PasswordInput from './components/PasswordInput/PasswordInput.js';

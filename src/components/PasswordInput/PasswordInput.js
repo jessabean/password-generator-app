@@ -1,4 +1,4 @@
-import { useState, useRef, useContext, useEffect } from 'react';
+import { useState, useRef, useContext } from 'react';
 import './PasswordInput.css';
 import PasswordContext from '../../contexts/Password/PasswordContext';
 
