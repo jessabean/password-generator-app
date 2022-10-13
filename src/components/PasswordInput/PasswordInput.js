@@ -7,11 +7,15 @@ function PasswordInput() {
   const buttonEl = useRef(null);
   const [buttonText, setButtonText] = useState('');
 
+  const copyToClipboard = async (text) => {
+    navigator.clipboard.writeText(text)
+  }
 
   function handleClick(event) {
     const copyButton = buttonEl.current;
     copyButton.classList.add('active');
     setButtonText('Copied');
+    copyToClipboard(context.passwordValue);
   }
 
   function animationEnd() {
