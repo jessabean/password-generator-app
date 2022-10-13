@@ -1,29 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './StrengthIndicator.css';
+import { optionsMap } from './optionsmap';
 
 function StrengthIndicator({options}) {
-  const optionsMap = [
-    {
-      options: 0,
-      label: 'Too weak!',
-    },
-    {
-      options: 1,
-      label: 'Too weak!',
-    },
-    {
-      options: 2,
-      label: 'Weak',
-    },
-    {
-      options: 3,
-      label: 'Medium',
-    },
-    {
-      options: 4,
-      label: 'Strong',
-    }
-  ];
+  const level = useCallback(() => {
+    return optionsMap.find(element => element.options === options)
+  }, [options]);
 
   const [strength, setStrength] = useState(
     {
@@ -32,15 +14,11 @@ function StrengthIndicator({options}) {
     }
   );
   
-  function measureStrength(options) {
-    return optionsMap.find(element => element.options === options);
-  }
-
   useEffect(() => {
-    setStrength(measureStrength(options));
-  }, [options])
+    setStrength(level);
+  }, [level])
 
-  const meterClasses = `strength-meter strength-meter--${options}`;
+  const meterClasses = `strength-meter strength-meter--${strength.options}`;
   
   return(
     <>
