@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import PasswordContext from '../../contexts/Password/PasswordContext';
 import './Slider.css';
 
-function Slider() {
+function Slider({handleChange}) {
   const context = useContext(PasswordContext);
   const MIN_VALUE = 0;
   const MAX_VALUE = 20;
@@ -17,7 +17,7 @@ function Slider() {
           min={MIN_VALUE} 
           max={MAX_VALUE} 
           value={context.length} 
-          onChange={context.updateLength} />
+          onChange={handleChange} />
       </div>
   )
 }

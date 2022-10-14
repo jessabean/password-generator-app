@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import './Button.css';
+import PasswordContext from '../../contexts/Password/PasswordContext';
 
 function Button({text = '', icon, onClick}) {
+  const context = useContext(PasswordContext);
+  
   return(
-    <button className="button" onClick={onClick}>
+    <button className="button" onClick={onClick} disabled={context.buttonDisabled}>
       {text}
       {!!icon &&
         <span className="button-icon">

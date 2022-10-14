@@ -23,14 +23,19 @@ function PasswordInput() {
     setButtonText('');
   }
 
+  const wrapperClasses = () => 
+    context.buttonDisabled 
+      ? 'password-input-wrapper password-input-disabled' 
+      : 'password-input-wrapper';
+
   return (
-    <div className='password-input-wrapper'>
+    <div className={wrapperClasses()}>
       <input 
         readOnly
         className='password-input'
         value={context.passwordValue}
         placeholder='P4$5W0rD!' />
-      <button className='password-copy' onClick={handleClick} ref={buttonEl} onAnimationEnd={animationEnd}>
+      <button className='password-copy' onClick={handleClick} ref={buttonEl} onAnimationEnd={animationEnd} disabled={context.buttonDisabled}>
         <span className='password-copy-text'>{buttonText}</span>
         <svg className='password-copy-icon' arial-labelledby='copy-icon-title' viewBox="0 0 21 24" xmlns="http://www.w3.org/2000/svg">
           <title id='copy-icon-title'>Copy password</title>
