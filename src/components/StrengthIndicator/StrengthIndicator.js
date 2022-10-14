@@ -1,12 +1,13 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import './StrengthIndicator.css';
 import { optionsMap } from './optionsmap';
+import PasswordContext from '../../contexts/Password/PasswordContext';
 
-function StrengthIndicator({options}) {
+function StrengthIndicator() {
+  const { passwordPattern } = useContext(PasswordContext);
   const level = useCallback(() => {
-    return optionsMap.find(element => element.options === options)
-  }, [options]);
-
+    return optionsMap.find(element => element.options === passwordPattern.length)
+  }, [passwordPattern]);
   const [strength, setStrength] = useState(
     {
       options: 3,

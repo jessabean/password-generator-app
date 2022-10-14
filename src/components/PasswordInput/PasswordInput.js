@@ -11,7 +11,7 @@ function PasswordInput() {
     navigator.clipboard.writeText(text)
   }
 
-  function handleClick(event) {
+  function handleClick() {
     const copyButton = buttonEl.current;
     copyButton.classList.add('active');
     setButtonText('Copied');
