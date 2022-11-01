@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Password Generator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This implementation is a solution to the [Password Generator App prompt](https://www.frontendmentor.io/challenges/password-generator-app-Mr8CLycqjh) at FrontendMentor.io.
 
-## Available Scripts
+## Demo
 
-In the project directory, you can run:
+Live demo can be found at https://jesaabean-password-generator.netlify.app/
 
-### `npm start`
+## Technologies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [React](https://reactjs.org/)
+- [randomatic](https://github.com/jonschlinkert/randomatic)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup
 
-### `npm test`
+To clone and run this application, you'll need Git and Node.js (which comes with npm) installed on your computer. From your command line:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+# Clone this repository
+$ git clone git@github.com:jessabean/password-generator-app.git
 
-### `npm run build`
+# Go to your local copy of the repository
+$ cd password-generator-app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Install dependencies
+$ npm install
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Run the app
+$ npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Original prompt
 
-### `npm run eject`
+Find the full brief on the [FrontendMentor.io challenge page](https://www.frontendmentor.io/challenges/password-generator-app-Mr8CLycqjh).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Users should be able to:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Generate a password based on the selected inclusion options
+- Copy the generated password to the computer's clipboard
+- See a strength rating for their generated password
+- View the optimal layout for the interface depending on their device's screen size
+- See hover and focus states for all interactive elements on the page
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Notes & to do
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- No business rules for password strength were included with the prompt, so I did not implement and algorithm based on character length and inclusion options. This would be a good to do.
+- Didn't write tests; mostly focused on getting familiar with React.
+- The designs included a button to generate a new password, but I prefer the UX of having the password generate automatically as the user changes parameters, instead.
+- I experimented with using [Context](https://reactjs.org/docs/context.html) and definitely have some more to learn there.
+- 🪲: When the password length is `0`, the button state is disabled (as expected), but there is a flash of active state as the user checks inclusion options. Need to tinker with component rendering cycle here.
