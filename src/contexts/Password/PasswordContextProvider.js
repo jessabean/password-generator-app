@@ -8,17 +8,6 @@ function PasswordContextProvider({children}) {
   const [passwordValue, setPasswordValue] = useState('');
   const [buttonDisabled, setbuttonDisabled] = useState(false);
 
-  const updatePattern = array =>  {
-    const pattern = array.join('');
-    if(!array.length) {
-      setbuttonDisabled(true);
-    } else {
-      setbuttonDisabled(false);
-    }
-
-    setPasswordPattern(pattern);
-  }
-
   const generatePassword = (passwordLength, passwordPattern) => {
     const pw = randomize(passwordPattern, passwordLength);
     setPasswordValue(pw);
@@ -32,7 +21,6 @@ function PasswordContextProvider({children}) {
     pattern: passwordPattern,
     passwordValue: passwordValue,
     buttonDisabled: buttonDisabled,
-    updatePattern,
     generatePassword,
     updateButtonState,
   };
@@ -46,7 +34,6 @@ function PasswordContextProvider({children}) {
         passwordPattern, setPasswordPattern,
         passwordValue, setPasswordValue,
         buttonDisabled, setbuttonDisabled,
-        updatePattern,
         generatePassword,
         updateButtonState,
         passwordSettings }}>

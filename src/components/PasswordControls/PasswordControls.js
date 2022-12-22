@@ -1,18 +1,16 @@
-import { useState, useEffect, useContext } from 'react';
-import PasswordContext from '../../contexts/Password/PasswordContext';
+import { useState, useEffect, useRef } from 'react';
 import './PasswordControls.css';
 import { controls } from './passwordoptions';
 
-function PasswordControls() {
-  const context = useContext(PasswordContext);
-  const defaultChecked = controls.filter((control) => control.checked === true);
-  const initialOptions = defaultChecked.flatMap((item) => [item.pattern]);
+function PasswordControls({patternData, updatePattern}) {
   const initialChecks = controls.flatMap((item) => [item.checked]);
 
+  // convert patternData string to an array so we can filter
+  const [pattern, setPattern] = useState([patternData]);
   const [checkedControls, setCheckedControls] = useState(initialChecks);
-  const [passwordOptions, setPasswordOptions] = useState(initialOptions);
-
-  function handleCheck(event, position) {
+  const patternValue = useRef(patternData);
+  
+  const handleCheck = (event, position) => {
     const {value, checked} = event.target; 
     const updatedCheckedState = checkedControls.map((item, index) =>
       index === position ? !item : item
@@ -21,18 +19,19 @@ function PasswordControls() {
     setCheckedControls(updatedCheckedState);
     
     if(checked) {
-      setPasswordOptions([...passwordOptions, value]);
-      context.updatePattern(passwordOptions);
+      setPattern([...pattern, value])
+      patternValue.current = [...pattern, value];
+      updatePattern(patternValue.current);
     } else {
-      setPasswordOptions(passwordOptions.filter((e) => e !== value));
-      context.updatePattern(passwordOptions);
+      setPattern(pattern.filter((patternCode) => patternCode !== value))
+      patternValue.current = pattern.filter((patternCode) => patternCode !== value);
+      updatePattern(patternValue.current);
     }
-  }
+  };
 
   useEffect(() => {
-    setPasswordOptions(passwordOptions);
-    context.updatePattern(passwordOptions);
-  },[passwordOptions, context]);
+    patternValue.current = pattern;
+  },[pattern]);
 
   return(
     <>
@@ -44,7 +43,7 @@ function PasswordControls() {
       
       <ul className="password-options">
         {controls.map(
-          ({ name, label, pattern, checked }, index) => {
+          ({ name, label, pattern }, index) => {
             return (
               <li key={index} className="option">
                 <label className="option-label">

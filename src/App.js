@@ -16,6 +16,7 @@ function App() {
     pattern: DEFAULT_PATTERN
   })
   const [passwordLength, setPasswordLength] = useState(DEFAULT_LENGTH);
+  const [passwordPattern, setPasswordPattern] = useState(DEFAULT_PATTERN);
   const [passwordValue, setPasswordValue] = useState('');
   const [buttonDisabled, setbuttonDisabled] = useState(false);
 
@@ -26,8 +27,20 @@ function App() {
       setbuttonDisabled(false);
     }
 
-    setPasswordData({...passwordData, length: parseInt(num)})
-    generatePassword(passwordData.pattern, passwordData.length)
+    setPasswordData({...passwordData, length: parseInt(num)});
+    generatePassword(passwordData.pattern, passwordData.length);
+  }
+
+  const handlePatternUpdate = (patternArray) =>  {
+    const newPattern = patternArray.join('');
+    if(!newPattern.length) {
+      setbuttonDisabled(true);
+    } else {
+      setbuttonDisabled(false);
+    }
+
+    setPasswordData({...passwordData, pattern: newPattern});
+    generatePassword(passwordData.pattern, passwordData.length);
   }
 
   const generatePassword = (passwordPattern, passwordLength) => {
@@ -39,7 +52,8 @@ function App() {
     if(passwordData.length === 0) {
       setbuttonDisabled(true);
     }
-  }, [passwordData])
+    generatePassword(passwordData.pattern, passwordData.length)
+      }, [passwordData])
 
   return (
     <div className='wrap'>
@@ -53,7 +67,7 @@ function App() {
         </div>
         <div className='password-controls'>
           <Slider updateLength={handleLengthUpdate} length={passwordLength}></Slider>
-          <PasswordControls></PasswordControls>
+          <PasswordControls patternData={passwordPattern} updatePattern={handlePatternUpdate}></PasswordControls>
           <StrengthIndicator></StrengthIndicator>
           <Button text='Generate' icon='true' isDisabled={buttonDisabled} onClick={() => generatePassword(passwordData.pattern, passwordData.length)}></Button>
         </div>
