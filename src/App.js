@@ -53,7 +53,7 @@ function App() {
       setbuttonDisabled(true);
     }
     generatePassword(passwordData.pattern, passwordData.length)
-      }, [passwordData])
+  }, [passwordData])
 
   return (
     <div className='wrap'>
@@ -67,8 +67,8 @@ function App() {
         </div>
         <div className='password-controls'>
           <Slider updateLength={handleLengthUpdate} length={passwordLength}></Slider>
-          <PasswordControls patternData={passwordPattern} updatePattern={handlePatternUpdate}></PasswordControls>
-          <StrengthIndicator></StrengthIndicator>
+          <PasswordControls patternData={passwordData.pattern} updatePattern={handlePatternUpdate}></PasswordControls>
+          <StrengthIndicator patternData={passwordData.pattern}></StrengthIndicator>
           <Button text='Generate' icon='true' isDisabled={buttonDisabled} onClick={() => generatePassword(passwordData.pattern, passwordData.length)}></Button>
         </div>
       </PasswordContextProvider>
