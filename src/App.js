@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import randomize from 'randomatic';
 import './App.css';
 import PasswordInput from './components/PasswordInput/PasswordInput.js';
@@ -35,6 +35,12 @@ function App() {
     setPasswordValue(pw);
   }
 
+  useEffect(() => {
+    if(passwordData.length === 0) {
+      setbuttonDisabled(true);
+    }
+  }, [passwordData])
+
   return (
     <div className='wrap'>
       <header className='app-header'>
@@ -49,7 +55,7 @@ function App() {
           <Slider updateLength={handleLengthUpdate} length={passwordLength}></Slider>
           <PasswordControls></PasswordControls>
           <StrengthIndicator></StrengthIndicator>
-          <Button text='Generate' icon='true'></Button>
+          <Button text='Generate' icon='true' isDisabled={buttonDisabled} onClick={() => generatePassword(passwordData.pattern, passwordData.length)}></Button>
         </div>
       </PasswordContextProvider>
     </div>
