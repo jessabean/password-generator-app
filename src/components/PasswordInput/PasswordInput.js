@@ -2,7 +2,7 @@ import { useState, useRef, useContext } from 'react';
 import './PasswordInput.css';
 import PasswordContext from '../../contexts/Password/PasswordContext';
 
-function PasswordInput() {
+function PasswordInput({value}) {
   const context = useContext(PasswordContext);
   const buttonEl = useRef(null);
   const [buttonText, setButtonText] = useState('');
@@ -33,7 +33,7 @@ function PasswordInput() {
       <input 
         readOnly
         className='password-input'
-        value={context.passwordValue}
+        value={value}
         placeholder='P4$5W0rD!' />
       <button className='password-copy' onClick={handleClick} ref={buttonEl} onAnimationEnd={animationEnd} disabled={context.buttonDisabled}>
         <span className='password-copy-text'>{buttonText}</span>
