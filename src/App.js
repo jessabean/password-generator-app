@@ -13,47 +13,37 @@ function App() {
   const DEFAULT_PATTERN = 'a';
   const [passwordData, setPasswordData] = useState({
     length: DEFAULT_LENGTH,
-    pattern: DEFAULT_PATTERN
+    pattern: DEFAULT_PATTERN,
+    value: '',
+    valid: true
   })
-  const [passwordLength, setPasswordLength] = useState(DEFAULT_LENGTH);
-  const [passwordPattern, setPasswordPattern] = useState(DEFAULT_PATTERN);
-  const [passwordValue, setPasswordValue] = useState('');
-  const [buttonDisabled, setbuttonDisabled] = useState(false);
 
   const handleLengthUpdate = (num) => {
-    if(parseInt(num) < 1) {
-      setbuttonDisabled(true);
-    } else {
-      setbuttonDisabled(false);
-    }
+    let isValid = parseInt(num) < 1 ? false : true;
 
-    setPasswordData({...passwordData, length: parseInt(num)});
-    generatePassword(passwordData.pattern, passwordData.length);
+    setPasswordData({
+      ...passwordData, 
+      length: parseInt(num),
+      valid: isValid,
+      value: generatePassword(passwordData.pattern, parseInt(num))
+    });
   }
 
   const handlePatternUpdate = (patternArray) =>  {
     const newPattern = patternArray.join('');
-    if(!newPattern.length) {
-      setbuttonDisabled(true);
-    } else {
-      setbuttonDisabled(false);
-    }
+    let isValid = !newPattern.length ? false : true;
 
-    setPasswordData({...passwordData, pattern: newPattern});
-    generatePassword(passwordData.pattern, passwordData.length);
+    setPasswordData({
+      ...passwordData, 
+      valid: isValid,
+      pattern: newPattern,
+      value: generatePassword(newPattern, passwordData.length)
+    });
   }
 
   const generatePassword = (passwordPattern, passwordLength) => {
-    const pw = randomize(passwordPattern, passwordLength);
-    setPasswordValue(pw);
+    return randomize(passwordPattern, passwordLength);
   }
-
-  useEffect(() => {
-    if(passwordData.length === 0) {
-      setbuttonDisabled(true);
-    }
-    generatePassword(passwordData.pattern, passwordData.length)
-  }, [passwordData])
 
   return (
     <div className='wrap'>
@@ -63,13 +53,13 @@ function App() {
 
       <PasswordContextProvider>
         <div className='password-box'>
-          <PasswordInput value={passwordValue}></PasswordInput>
+          <PasswordInput data={passwordData}></PasswordInput>
         </div>
         <div className='password-controls'>
-          <Slider updateLength={handleLengthUpdate} length={passwordLength}></Slider>
+          <Slider updateLength={handleLengthUpdate} length={passwordData.length}></Slider>
           <PasswordControls patternData={passwordData.pattern} updatePattern={handlePatternUpdate}></PasswordControls>
           <StrengthIndicator patternData={passwordData.pattern}></StrengthIndicator>
-          <Button text='Generate' icon='true' isDisabled={buttonDisabled} onClick={() => generatePassword(passwordData.pattern, passwordData.length)}></Button>
+          <Button text='Generate' icon='true' isDisabled={!passwordData.valid} onClick={() => generatePassword(passwordData.pattern, passwordData.length)}></Button>
         </div>
       </PasswordContextProvider>
     </div>

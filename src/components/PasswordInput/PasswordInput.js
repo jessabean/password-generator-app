@@ -1,10 +1,9 @@
-import { useState, useRef, useContext } from 'react';
+import { useState, useRef } from 'react';
 import './PasswordInput.css';
-import PasswordContext from '../../contexts/Password/PasswordContext';
 
-function PasswordInput({value}) {
-  const context = useContext(PasswordContext);
+function PasswordInput({data}) {
   const buttonEl = useRef(null);
+  const inputEl = useRef(null);
   const [buttonText, setButtonText] = useState('');
 
   const copyToClipboard = async (text) => {
@@ -15,7 +14,7 @@ function PasswordInput({value}) {
     const copyButton = buttonEl.current;
     copyButton.classList.add('active');
     setButtonText('Copied');
-    copyToClipboard(context.passwordValue);
+    copyToClipboard(inputEl.current.value);
   }
 
   function animationEnd() {
@@ -24,7 +23,7 @@ function PasswordInput({value}) {
   }
 
   const wrapperClasses = () => 
-    context.buttonDisabled 
+    data.valid === false
       ? 'password-input-wrapper password-input-disabled' 
       : 'password-input-wrapper';
 
@@ -33,9 +32,10 @@ function PasswordInput({value}) {
       <input 
         readOnly
         className='password-input'
-        value={value}
-        placeholder='P4$5W0rD!' />
-      <button className='password-copy' onClick={handleClick} ref={buttonEl} onAnimationEnd={animationEnd} disabled={context.buttonDisabled}>
+        value={data.value}
+        placeholder='P4$5W0rD!'
+        ref={inputEl} />
+      <button className='password-copy' onClick={handleClick} ref={buttonEl} onAnimationEnd={animationEnd} disabled={!data.valid}>
         <span className='password-copy-text'>{buttonText}</span>
         <svg className='password-copy-icon' arial-labelledby='copy-icon-title' viewBox="0 0 21 24" xmlns="http://www.w3.org/2000/svg">
           <title id='copy-icon-title'>Copy password</title>
