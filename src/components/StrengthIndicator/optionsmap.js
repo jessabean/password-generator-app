@@ -1,22 +1,22 @@
-export const optionsMap = [
-  {
-    options: 0,
+export const optionsMap = {
+  '1': {
+    minLength: 8,
+    level: 1,
     label: 'Too weak!',
   },
-  {
-    options: 1,
-    label: 'Too weak!',
-  },
-  {
-    options: 2,
+  '2': {
+    minLength: 11,
+    level: 2,
     label: 'Weak',
   },
-  {
-    options: 3,
+  '3': {
+    minLength: 14,
+    level: 3,
     label: 'Medium',
   },
-  {
-    options: 4,
+  '4': {
+    minLength: 16,
+    level: 4,
     label: 'Strong',
   }
-];
+};

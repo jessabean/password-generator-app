@@ -1,30 +1,32 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import './StrengthIndicator.css';
 import { optionsMap } from './optionsmap';
+import zxcvbn from 'zxcvbn';
 
-function StrengthIndicator({patternData}) {
-  const [strength, setStrength] = useState(
-    {
-      options: 3,
-      label: 'medium'
+function StrengthIndicator({password}) {
+  const [strength, setStrength] = useState(optionsMap['2']);
+
+  const calcPasswordScore = (password) => {
+    let score = zxcvbn(password).score;
+    if (score === 0) {
+      return 1;
     }
-  );
-  const level = useCallback(() => {
-    return optionsMap.find(element => element.options === patternData.length)
-  }, [patternData]);
+    return score;
+  }
   
   useEffect(() => {
-    setStrength(level);
-  }, [strength, patternData])
+    let strengthLevel = calcPasswordScore(password);;
+    setStrength(optionsMap[strengthLevel]);
+  }, [password])
 
-  const meterClasses = `strength-meter strength-meter--${strength.options}`;
+  const meterClasses = `strength-meter strength-meter--${strength.level}`;
   
   return(
     <>
       <div className="strength">
         <p className="strength-title">Strength</p>
 
-        <div className={meterClasses} key={patternData}>
+        <div className={meterClasses} key={password}>
           <p className="strength-label">{strength.label}</p>
           <div className="strength-meter-image" role="img">
             <svg className="strength-meter-increment" fill="none" viewBox="0 0 11 28" xmlns="http://www.w3.org/2000/svg">
