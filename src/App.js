@@ -20,11 +20,12 @@ function App() {
   const handleLengthUpdate = (num) => {
     let isValid = parseInt(num) < 1 ? false : true;
 
+
     setPasswordData({
       ...passwordData, 
       length: parseInt(num),
       valid: isValid,
-      value: generatePassword(passwordData.pattern, parseInt(num))
+      value: randomize(passwordData.pattern, parseInt(num))
     });
   }
 
@@ -36,12 +37,15 @@ function App() {
       ...passwordData, 
       valid: isValid,
       pattern: newPattern,
-      value: generatePassword(newPattern, passwordData.length)
+      value: randomize(newPattern, passwordData.length)
     });
   }
 
   const generatePassword = (passwordPattern, passwordLength) => {
-    return randomize(passwordPattern, passwordLength);
+    setPasswordData({
+      ...passwordData,
+      value: randomize(passwordPattern, passwordLength)
+    });
   }
 
   return (
