@@ -54,7 +54,7 @@ function App() {
           <PasswordInput data={passwordData}></PasswordInput>
         </div>
         <div className='password-controls'>
-          <Slider updateLength={handleLengthUpdate} length={passwordData.length}></Slider>
+          <Slider updateLength={handleLengthUpdate} passwordLength={passwordData.length}></Slider>
           <PasswordControls patternData={passwordData.pattern} updatePattern={handlePatternUpdate}></PasswordControls>
           <StrengthIndicator password={passwordData.value}></StrengthIndicator>
           <Button text='Generate' icon='true' isDisabled={!passwordData.valid} onClick={() => generatePassword(passwordData.pattern, passwordData.length)}></Button>
